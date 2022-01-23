@@ -1,0 +1,30 @@
+{
+  "name": "serverless-kinesis-esm-plugin",
+  "version": "1.0.0",
+  "description": "Serverless plugin for kinesis event source mapping custom resource.",
+  "author": "John Gilbert",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgilbert01/serverless-kinesis-plugin.git"
+  },
+  "keywords": [
+    "serverless",
+    "serverless plugin",
+    "kinesis",
+    "aws",
+    "amazon web services",
+    "serverless.com"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js",
+    "test": "npm run lint"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1"
+  }
+}
