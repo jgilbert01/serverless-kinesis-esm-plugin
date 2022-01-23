@@ -1,0 +1,25 @@
+service: my-test-service
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  environment:
+    STREAM_ARN: ${cf:event-hub-${opt:stage}.stream1Arn}
+    
+custom:
+  cfn:
+    esm: my-custom-resources-${opt:stage}-esm
+
+plugins:
+  - serverless-kinesis-esm-plugin
+
+functions:
+  listener:
+    handler: index.handle
+    events:
+      - stream:
+          type: kinesis
+          arn: ${self:provider.environment.STREAM_ARN}
+          # arn: arn:aws:kinesis:region:XXXXXX:stream/foobar
+          batchSize: 100
+          startingPosition: TRIM_HORIZON
