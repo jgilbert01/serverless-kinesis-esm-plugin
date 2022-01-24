@@ -10,11 +10,13 @@ provider:
     PROJECT: ${self:service}
     STAGE: ${opt:stage}
     DEBUG: ${self:custom.accounts.${opt:acct}.debug}
-  # iamRoleStatements:
-  #   - Effect: Allow
-  #     Action:
-  #       - events:PutEvents
-  #     Resource: ${self:provider.environment.BUS_ARN}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:CreateEventSourceMapping
+        - lambda:UpdateEventSourceMapping
+        - lambda:DeleteEventSourceMapping
+      Resource: '*'
 
 package:
   individually: true

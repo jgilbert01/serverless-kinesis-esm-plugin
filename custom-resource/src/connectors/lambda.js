@@ -5,36 +5,31 @@ import Promise from 'bluebird';
 config.setPromisesDependency(Promise);
 
 class Connector {
-  constructor({
-    debug,
-    timeout = Number(process.env.LAMBDA_TIMEOUT) || Number(process.env.TIMEOUT) || 6000,
-  }) {
-    this.debug = debug;
+  constructor() {
     this.lambda = new Lambda({
       httpOptions: {
-        timeout,
-        // agent: sslAgent,
+        timeout: 6000,
       },
-      logger: { log: /* istanbul ignore next */ msg => this.debug(msg) },
+      logger: { log: /* istanbul ignore next */ msg => console.log(msg) },
     });
   }
 
   createEventSourceMapping(params) {
     return this.lambda.createEventSourceMapping(params).promise()
-      .tap(this.debug)
-      .tapCatch(this.debug);
+      .tap(console.log)
+      .tapCatch(console.log);
   }
 
   updateEventSourceMapping(params) {
     return this.lambda.updateEventSourceMapping(params).promise()
-      .tap(this.debug)
-      .tapCatch(this.debug);
+      .tap(console.log)
+      .tapCatch(console.log);
   }
 
   deleteEventSourceMapping(params) {
     return this.lambda.deleteEventSourceMapping(params).promise()
-      .tap(this.debug)
-      .tapCatch(this.debug);
+      .tap(console.log)
+      .tapCatch(console.log);
   }
 }
 

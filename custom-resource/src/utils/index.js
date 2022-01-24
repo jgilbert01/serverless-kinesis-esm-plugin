@@ -73,10 +73,8 @@ function getEnvironment(context) {
   };
 }
 
-function handlerWrapper(handler, PhysicalResourceId) {
+function handlerWrapper(handler) {
   return (event, context, callback) => {
-    // extend the `event` object to include the PhysicalResourceId
-    event = Object.assign({}, event, { PhysicalResourceId });
     return Promise.resolve(handler(event, context, callback))
       .then(
         result => response(event, context, 'SUCCESS', result),
