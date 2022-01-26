@@ -8,7 +8,10 @@ provider:
     
 custom:
   cfn:
-    esm: my-custom-resources-${opt:stage}-esm
+    esm: 
+      function: eagle-ng-custom-resources-${opt:stage}-esm
+      enabled: stg
+    # remove and re add
 
 plugins:
   - serverless-kinesis-esm-plugin
