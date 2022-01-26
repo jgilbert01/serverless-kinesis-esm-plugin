@@ -39,7 +39,7 @@ plugins:
 functions:
   esm:
     handler: src/esm/index.handle
-    timeout: 20
+    timeout: 120
     # dlq
 
   # retry:
