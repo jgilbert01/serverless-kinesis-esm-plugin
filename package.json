@@ -18,13 +18,15 @@
   ],
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js",
+    "lint": "eslint --fix index.js",
     "test": "npm run lint"
   },
   "dependencies": {
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "eslint": "^4.19.1"
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4"
   }
 }
