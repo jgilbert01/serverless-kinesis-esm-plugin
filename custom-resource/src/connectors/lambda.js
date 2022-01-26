@@ -11,6 +11,7 @@ class Connector {
         timeout: 6000,
       },
       logger: { log: /* istanbul ignore next */ msg => console.log(msg) },
+      maxRetries: 6,
     });
   }
 
