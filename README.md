@@ -10,7 +10,7 @@ This fixes the out of the box AWS::Lambda::EventSourceMapping resource type that
 
 ## Install
 
-First, create a stack for the custom resource using this [template](https://github.com/jgilbert01/serverless-kinesis-esm-plugin/tree/master/custom-resource).
+First, create a stack for the custom resource using this [template](https://github.com/jgilbert01/serverless-kinesis-esm-plugin/blob/master/custom-resource).
 
 Then install and configure the plugin that updates your stack to use the custom resource:
 
