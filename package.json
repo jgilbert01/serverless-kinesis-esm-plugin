@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jgilbert01/serverless-kinesis-plugin.git"
+    "url": "git+https://github.com/jgilbert01/serverless-kinesis-esm-plugin.git"
   },
   "keywords": [
     "serverless",
