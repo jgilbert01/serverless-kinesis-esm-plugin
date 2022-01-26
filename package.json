@@ -1,0 +1,32 @@
+{
+  "name": "serverless-kinesis-esm-plugin",
+  "version": "1.0.0",
+  "description": "Avoid the dreaded AWS Lambda Kinesis Event Source Mapping throttling error.",
+  "author": "John Gilbert",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgilbert01/serverless-kinesis-plugin.git"
+  },
+  "keywords": [
+    "serverless",
+    "serverless plugin",
+    "kinesis",
+    "aws",
+    "amazon web services",
+    "serverless.com"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --fix index.js",
+    "test": "npm run lint"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4"
+  }
+}

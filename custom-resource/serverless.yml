@@ -1,0 +1,42 @@
+service: my-custom-resources
+
+provider:
+  name: aws
+  # cfnRole: arn:aws:iam::${self:custom.accounts.${opt:acct}.accountNumber}:role/cfnRole
+  # deploymentBucket: myprefix-${opt:acct}-${opt:region}-serverlessdeploymentbucket
+  runtime: nodejs14.x
+  environment:
+    ACCOUNT_NAME: ${opt:acct}
+    PROJECT: ${self:service}
+    STAGE: ${opt:stage}
+    DEBUG: ${self:custom.accounts.${opt:acct}.debug}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:CreateEventSourceMapping
+        - lambda:UpdateEventSourceMapping
+        - lambda:DeleteEventSourceMapping
+      Resource: '*'
+
+package:
+  individually: true
+
+custom:
+  webpack:
+    includeModules: true
+  accounts:
+    dev:
+      # accountNumber: 123456789012
+      debug: '*'
+    prod:
+      # accountNumber: 123456789012
+      debug: '*'
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+functions:
+  esm:
+    handler: src/esm/index.handle
+    timeout: 120
