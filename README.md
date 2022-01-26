@@ -1,15 +1,22 @@
 # serverless-kinesis-esm-plugin
 
-Avoid the classic AWS Lambda Event Source Mapping (esm) deployment Kinesis throttling error.
+Avoid the dreaded AWS Lambda Kinesis Event Source Mapping throttling error.
 
-"Invalid request provided: Received Exception while reading from provided stream. Rate exceeded for shard shardId-000000000000 in stream my-event-hub-stg-s1"
+> "Invalid request provided: Received Exception while reading from provided stream. Rate exceeded for shard shardId-000000000000 in stream my-event-hub-stg-s1"
 
-Serverless plugin for kinesis event source mapping custom resource.
+This error happens when you have too many functions consuming from the same stream. This is most acute in a shared development account where functions are not busy doing real work and spend most of their time polling kinesis.
 
-Serverless plugin to copy secrets from a CI/CD pipeline environment to AWS Secrets Manager.
+This fixes the out of the box AWS::Lambda::EventSourceMapping resource type that does not seem to perform any retries.
 
-All the secrets are stored together, so that they can be accessed with a single API calls.
-The environment variables are grouped into a JSON object and base64 encoded.
+## Install
+
+First, create a stack for the custom resource using this [template](https://github.com/jgilbert01/serverless-kinesis-esm-plugin/tree/master/custom-resource).
+
+Then install and configure the plugin that updates your stack to use the custom resource:
+
+```
+npm install serverless-kinesis-esm-plugin --save-dev
+```
 
 ## serverless.yml
 
@@ -19,5 +26,17 @@ The environment variables are grouped into a JSON object and base64 encoded.
 plugins:
   - serverless-kinesis-plugin
 
+custom:
+  cfn:
+    esm: 
+      function: my-custom-resources-${opt:stage}-esm
+      # enabled: stg # comma separated list of stages
 
+functions:
+  listener:
+    handler: index.handle
+    events:
+      - stream:
+          type: kinesis
+          arn: arn:aws:kinesis:region:XXXXXX:stream/foobar
 ```

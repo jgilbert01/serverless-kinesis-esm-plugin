@@ -74,14 +74,12 @@ function getEnvironment(context) {
 }
 
 function handlerWrapper(handler) {
-  return (event, context, callback) => {
-    return Promise.resolve(handler(event, context, callback))
-      .then(
-        result => response(event, context, 'SUCCESS', result),
-        error => response(event, context, 'FAILED', {}, error),
-      )
-      .then(result => callback(null, result), callback);
-  };
+  return (event, context, callback) => Promise.resolve(handler(event, context, callback))
+    .then(
+      result => response(event, context, 'SUCCESS', result),
+      error => response(event, context, 'FAILED', {}, error),
+    )
+    .then(result => callback(null, result), callback);
 }
 
 function wait(ms) {

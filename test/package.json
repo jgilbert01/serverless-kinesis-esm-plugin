@@ -8,6 +8,7 @@
   "dependencies": {},
   "devDependencies": {
     "lodash": "^4.17.21",
+    "serverless-kinesis-esm-plugin": "^1.0.0",
     "serverless": "^2.0.0"
   }
 }

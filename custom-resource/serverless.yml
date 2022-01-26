@@ -40,18 +40,3 @@ functions:
   esm:
     handler: src/esm/index.handle
     timeout: 120
-    # dlq
-
-  # retry:
-  #   handler: src/retry/index.handle
-  #   events:
-  #   SNS
-  #     - stream:
-  #         type: kinesis
-  #         arn: ${self:provider.environment.STREAM_ARN}
-  #         batchSize: 100
-  #         startingPosition: TRIM_HORIZON
-
-# resources:
-#   Resources:
-#     SNS/SQS

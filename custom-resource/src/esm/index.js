@@ -19,7 +19,7 @@ const create = (event, context) => {
   const { ServiceToken, ...ResourceProperties } = event.ResourceProperties;
   ResourceProperties.Enabled = ResourceProperties.Enabled === 'true';
   ResourceProperties.BisectBatchOnFunctionError = ResourceProperties.BisectBatchOnFunctionError === 'true';
-  
+
   return (new Connector())
     .createEventSourceMapping(ResourceProperties)
     .then((data) => {
@@ -41,15 +41,13 @@ const update = (event, context) => {
   });
 };
 
-const remove = (event, context) => {
-  return (new Connector())
-    .deleteEventSourceMapping({ UUID: event.PhysicalResourceId })
-    .catch(/* istanbul ignore next */(err) => {
-      if (err.code === 'ResourceNotFoundException') {
-        return {};
-      }
-      return Promise.reject(err);
-    });
-};
+const remove = (event, context) => (new Connector())
+  .deleteEventSourceMapping({ UUID: event.PhysicalResourceId })
+  .catch(/* istanbul ignore next */(err) => {
+    if (err.code === 'ResourceNotFoundException') {
+      return {};
+    }
+    return Promise.reject(err);
+  });
 
 export const handle = handlerWrapper(handler); // eslint-disable-line import/prefer-default-export
