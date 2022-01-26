@@ -10,6 +10,11 @@ class Plugin {
   }
 
   beforeCreateDeploymentArtifacts() {
+    const enabled = this.serverless.service.custom.cfn.esm.enabled;
+    if (enabled && !enabled.includes(this.options.stage)) {
+      return;
+    }
+
     const baseResources = this.serverless.service.provider.compiledCloudFormationTemplate;
 
     // console.log('service:', this.serverless.service);
@@ -33,8 +38,8 @@ class Plugin {
                     Ref: 'AWS::AccountId'
                   },
                   'function',
-                  this.serverless.service.custom?.cfn?.esm ?
-                    this.serverless.service.custom.cfn.esm :
+                  this.serverless.service.custom?.cfn?.esm?.function ?
+                    this.serverless.service.custom.cfn.esm?.function :
                     `custom-resources-${this.serverless.service.provider.stage}-esm`
                 ]
               ]
