@@ -23,29 +23,33 @@ class Plugin {
     this.serverless.service.provider.compiledCloudFormationTemplate = cloneDeepWith(
       baseResources,
       (value, key, object) => { // (value [, index|key, object, stack])
-        if (
-          value === 'AWS::Lambda::EventSourceMapping'
-            && object.Properties.EventSourceArn.includes('kinesis')
-        ) {
-          // yes i know this is a side effect
-          object.Properties.ServiceToken = { // eslint-disable-line no-param-reassign
-            'Fn::Join': [
-              ':',
-              [
-                'arn:aws:lambda',
-                this.serverless.service.provider.region,
-                {
-                  Ref: 'AWS::AccountId',
-                },
-                'function',
-                this.serverless.service.custom?.cfn?.esm?.function
-                  ? this.serverless.service.custom.cfn.esm.function
-                  : `custom-resources-${this.serverless.service.provider.stage}-esm`,
-              ],
-            ],
-          };
+        if (value === 'AWS::Lambda::EventSourceMapping') {
 
-          return 'Custom::EventSourceMapping';
+          // console.log('object:', JSON.stringify(object, null, 2));
+
+          if (typeof object.Properties.EventSourceArn === 'string' &&
+            object.Properties.EventSourceArn.includes('kinesis')
+          ) {
+            // yes i know this is a side effect
+            object.Properties.ServiceToken = { // eslint-disable-line no-param-reassign
+              'Fn::Join': [
+                ':',
+                [
+                  'arn:aws:lambda',
+                  this.serverless.service.provider.region,
+                  {
+                    Ref: 'AWS::AccountId',
+                  },
+                  'function',
+                  this.serverless.service.custom?.cfn?.esm?.function
+                    ? this.serverless.service.custom.cfn.esm.function
+                    : `custom-resources-${this.serverless.service.provider.stage}-esm`,
+                ],
+              ],
+            };
+
+            return 'Custom::EventSourceMapping';
+          }
         }
         return undefined;
       },
