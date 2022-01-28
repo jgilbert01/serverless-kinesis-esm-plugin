@@ -1,6 +1,6 @@
 {
   "name": "serverless-kinesis-esm-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Avoid the dreaded AWS Lambda Kinesis Event Source Mapping throttling error.",
   "author": "John Gilbert",
   "license": "MIT",
