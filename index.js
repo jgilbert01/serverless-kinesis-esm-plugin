@@ -24,12 +24,10 @@ class Plugin {
       baseResources,
       (value, key, object) => { // (value [, index|key, object, stack])
         if (value === 'AWS::Lambda::EventSourceMapping') {
-
           // console.log('object:', JSON.stringify(object, null, 2));
 
-          if (typeof object.Properties.EventSourceArn === 'string' &&
-            object.Properties.EventSourceArn.includes('kinesis')
-          ) {
+          if (typeof object.Properties.EventSourceArn === 'string'
+            && object.Properties.EventSourceArn.includes('kinesis')) {
             // yes i know this is a side effect
             object.Properties.ServiceToken = { // eslint-disable-line no-param-reassign
               'Fn::Join': [
